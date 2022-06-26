@@ -1,3 +1,6 @@
+from unittest import result
+
+
 class Participant:
     def __init__(self, name):
         self.name = name
@@ -6,14 +9,36 @@ class Participant:
     def choose(self):
         self.choice = input("{name}, select rock, paper ou scissor: ".format(name= self.name))
         print("{name} selects {choice}".format(name = self.name, choice = self.choice))
+    def toNumericalChoice(self): # entrada de caracteres. Facilidade de saber o vencedor
+        switcher = {
+            "rock": 0,
+            "paper": 1,
+            "scissor": 2
+        }
+        return switcher[self.choice]
 class GameRound:
     def __init__(self, p1, p2):
+        self.rules = [
+            [0, -1, 1],
+            [1, 0, -1],
+            [-1, 1, 0]
+        ]
+
         p1.choose()
         p2.choose()
-    def compareChoices(self):
-        print("implement")
+        result = self.compareChoices(p1, p2)
+        print("Round resulted in a {result}".format(result = self.getResultAsString(result) ))
+    def compareChoices(self, p1, p2): # Comparação das escolhas / Determina o vencedor.
+        return self.rules[p1.toNumericalChoice()][p2.toNumericalChoice()]
     def awardPoints(self):
         print("implement")
+    def getResultAsString(self, result): # Determina o resultado
+        res = {
+            0: "draw",
+            1: "win",
+            -1: "loss"
+        }
+        return res[result]
 class Game:
     def __init__(self):
         self.endgame = False
