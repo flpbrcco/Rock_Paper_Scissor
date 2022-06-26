@@ -9,6 +9,7 @@ class Participant:
     def choose(self):
         self.choice = input("{name}, select rock, paper ou scissor: ".format(name= self.name))
         print("{name} selects {choice}".format(name = self.name, choice = self.choice))
+    
     def toNumericalChoice(self): # entrada de caracteres. Facilidade de saber o vencedor
         switcher = {
             "rock": 0,
@@ -16,6 +17,9 @@ class Participant:
             "scissor": 2
         }
         return switcher[self.choice]
+
+    def incrementPoint(self):
+        self.points += 1
 class GameRound:
     def __init__(self, p1, p2):
         self.rules = [
@@ -28,6 +32,12 @@ class GameRound:
         p2.choose()
         result = self.compareChoices(p1, p2)
         print("Round resulted in a {result}".format(result = self.getResultAsString(result) ))
+
+        if result > 0:
+            p1.incrementPoint()
+        elif result < 0:
+            p2.incrementPoint()
+    
     def compareChoices(self, p1, p2): # Comparação das escolhas / Determina o vencedor.
         return self.rules[p1.toNumericalChoice()][p2.toNumericalChoice()]
     def awardPoints(self):
@@ -39,6 +49,9 @@ class GameRound:
             -1: "loss"
         }
         return res[result]
+
+    
+    
 class Game:
     def __init__(self):
         self.endgame = False
@@ -49,8 +62,7 @@ class Game:
 
     def checkEndCondition(self):
         print("implement")
-    def determineWinner(self):
-        print("implement")
+    
 
 game = Game()
 game.start()
