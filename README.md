@@ -1,4 +1,3 @@
 # ppt
 
-Python Training /n
-Rock, Paper and Scissor Game
+"Rock, Paper & Scissor" Python Game Training/Understanding
