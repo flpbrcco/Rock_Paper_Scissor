@@ -58,11 +58,29 @@ class Game:
         self.participant = Participant("Spock")
         self.secondParticipant = Participant("Kirk")
     def start(self):
-        game_round = GameRound(self.participant, self.secondParticipant)
+        while not self.endgame:            
+            game_round = GameRound(self.participant, self.secondParticipant)
+            self.checkEndCondition()
 
     def checkEndCondition(self):
-        print("implement")
-    
+        answer = input("Continue game (y/n): ")
+        if answer == 'y':
+            GameRound(self.participant, self.secondParticipant)
+            self.checkEndCondition()
+        else:
+            print("Game ended, {p1name} has {p1points}, and {p2name} has {p2points}".format(
+                p1name = self.participant.name, p1points = self.participant.points, 
+                p2name = self.secondParticipant.name, p2points = self.secondParticipant.points))
+            self.determineWinner()
+            self.endgame = True
+    def determineWinner(self):
+        resultString = "It's a Draw!"
+        if self.participant.points > self.participant.points:
+            resultString = "Winner is {name}".format(
+                name = self.participant.name)
+        elif self.participant.points < self.secondParticipant.points:
+            resultString = "Winner is {name}".format(name = self.secondParticipant.name)
+        print(resultString)
 
 game = Game()
 game.start()
