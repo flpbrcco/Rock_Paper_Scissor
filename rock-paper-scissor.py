@@ -9,7 +9,9 @@ class Participant:
     def choose(self):
         self.choice = input("{name}, select rock, paper, scissor, lizard or Spock: ".format(name= self.name))
         print("{name} selects {choice}".format(name = self.name, choice = self.choice))
-    
+    def naming(self):
+        self.naming = (input("{}"))
+
     def toNumericalChoice(self): # entrada de caracteres. Facilidade de saber o vencedor
         switcher = {
             "rock": 0,
@@ -31,7 +33,7 @@ class GameRound:
             [-1, 1, -1, 0, 1],
             [1, -1, 1, -1, 0]
         ]
-
+        
         p1.choose()
         p2.choose()
         result = self.compareChoices(p1, p2)
